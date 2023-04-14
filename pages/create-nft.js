@@ -14,7 +14,7 @@ import NFTMarketplace from '../artifacts/contracts/NFTMarketplace.sol/NFTMarketp
 
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null)
-  const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' })
+  const [formInput, updateFormInput] = useState({ price: '', name: '', description: '', numTickets: '' })
   const router = useRouter()
   const ipfsClient = require('ipfs-http-client');
   const projectId = '2Nbyc3pTaJLnAvtxihWqpSUr1zT'; 
@@ -36,6 +36,7 @@ export default function CreateItem() {
 
   async function onChange(e) {
     const file = e.target.files[0]
+    console.log('got file', file);
     try {
       const added = await client.add(
         file,
@@ -44,13 +45,15 @@ export default function CreateItem() {
         }
       )
       const url = `https://${gateway}.infura-ipfs.io/ipfs/${added.path}`
+      console.log("File url", url);
       setFileUrl(url)
     } catch (error) {
       console.log('Error uploading file: ', error)
     }  
   }
   async function uploadToIPFS() {
-    const { name, description, price } = formInput
+    const { name, description, price, numTickets } = formInput
+    console.log('trying for', name, description, price, numTickets);
     if (!name || !description || !price || !fileUrl) return
     /* first, upload to IPFS */
     const data = JSON.stringify({
@@ -75,11 +78,14 @@ export default function CreateItem() {
 
     /* next, create the item */
     const price = ethers.utils.parseUnits(formInput.price, 'ether')
+    const numTickets = ethers.BigNumber.from(formInput.numTickets);
     let contract = new ethers.Contract(marketplaceAddress, NFTMarketplace.abi, signer)
-    let listingPrice = await contract.getListingPrice()
+    let listingPrice = await contract.getListingPrice();
+    listingPrice = listingPrice.mul(numTickets);
     listingPrice = listingPrice.toString()
     console.log(listingPrice);
-    let transaction = await contract.createToken(url, price, { value: listingPrice })
+    let transaction = await contract.createToken(url, numTickets, price, { value: listingPrice });
+    console.log("transaction done", transaction);
     await transaction.wait()
    
     router.push('/')
@@ -104,6 +110,11 @@ export default function CreateItem() {
           onChange={e => updateFormInput({ ...formInput, price: e.target.value })}
         />
         <input
+          placeholder="Number of tickets"
+          className="mt-2 border rounded p-4"
+          onChange={e => updateFormInput({ ...formInput, numTickets: e.target.value })}
+        />
+        <input
           type="file"
           name="Asset"
           className="my-4"
@@ -120,4 +131,4 @@ export default function CreateItem() {
       </div>
     </div>
   )
-}
+} 

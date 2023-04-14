@@ -17,7 +17,7 @@ export default function Home() {
   }, [])
   async function loadNFTs() {
     /* create a generic provider and query for unsold market items */
-    const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/92d451dad4924a55be3ebeab3cade25e")
+    const provider = new ethers.providers.JsonRpcProvider()
     const contract = new ethers.Contract(marketplaceAddress, NFTMarketplace.abi, provider)
     const data = await contract.fetchMarketItems()
 
@@ -31,6 +31,7 @@ export default function Home() {
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
       let item = {
         price,
+        eventId: i.eventId.toNumber(),
         tokenId: i.tokenId.toNumber(),
         seller: i.seller,
         owner: i.owner,
@@ -39,9 +40,10 @@ export default function Home() {
         description: meta.data.description,
       }
       return item
-    }))
-    setNfts(items)
-    setLoadingState('loaded') 
+    }));
+    console.log("unsold items", items)
+    setNfts(items);
+    setLoadingState('loaded') ;
   }
   async function buyNft(nft) {
     /* needs the user to sign the transaction, so will use Web3Provider and sign it */
@@ -53,8 +55,11 @@ export default function Home() {
 
     /* user will be prompted to pay the asking proces to complete the transaction */
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ether')   
+    console.log("Trying to buy", nft.tokenId,"at price", price)
+    console.log("Current gas price", ethers.providers.getDefaultProvider())
     const transaction = await contract.createMarketSale(nft.tokenId, {
-      value: price
+      value: price,
+      gasLimit: 10000000
     })
     await transaction.wait()
     loadNFTs()
@@ -73,6 +78,10 @@ export default function Home() {
                   <div style={{ height: '70px', overflow: 'hidden' }}>
                     <p className="text-gray-400">{nft.description}</p>
                   </div>
+                </div>
+                <div className="p-4 bg-black">
+                  <p className="test-2xl font-bold text-white">EventID: {nft.eventId}, TokenID: {nft.tokenId}</p>
+                  <p className="text-2xl font-bold text-white">Owner: {nft.owner}, Seller: {nft.seller}</p>
                 </div>
                 <div className="p-4 bg-black">
                   <p className="text-2xl font-bold text-white">{nft.price} ETH</p>
