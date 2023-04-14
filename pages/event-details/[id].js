@@ -19,11 +19,11 @@ export default function Event() {
 
   
   const router = useRouter()
-  const [id, setId] = useState(router.query);
-  const event_details = getEventDetails(id);
+  const [param, setParam] = useState(router.query);
+  const event_details = getEventDetails(param);
   
   useEffect(() => {
-    setId(router.query);
+    setParam(router.query);
     loadNFTs()
   }, [])
   async function loadNFTs() {
@@ -94,16 +94,13 @@ export default function Event() {
             {
               nfts.map((nft, i) => (
                 <div key={i} className="border shadow rounded-xl overflow-hidden">
-                  <img src={nft.image} />
+                  {/* <img src={nft.image} />
                   <div className="p-4">
                     <p style={{ height: '30px' }} className="text-2xl font-semibold">{nft.name}</p>
-                    <div style={{ height: '30px', overflow: 'hidden' }}>
-                      <p className="text-gray-400">{nft.description}</p>
-                    </div>
-                  </div>
+                  </div> */}
                   <div className="p-4 bg-black">
                     <p className="text-2xl font-bold text-white">{nft.price} ETH</p>
-                    <button className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => buyNft(nft)}>Buy</button>
+                    <button className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => buyNft(nft)}>Purchase Ticket</button>
                   </div>
                 </div>
               ))

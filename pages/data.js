@@ -25,7 +25,8 @@ export const events = [{
 ]
 
 
-export const getEventDetails = (id) => {
-    let required_event = events.find(event => event.id = id)
+export const getEventDetails = (param) => {
+    let eventId = Number(param.id);
+    let required_event = events.find(event => event.id === eventId)
     return required_event
   }
