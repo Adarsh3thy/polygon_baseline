@@ -14,7 +14,7 @@ import NFTMarketplace from '../artifacts/contracts/NFTMarketplace.sol/NFTMarketp
 
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null)
-  const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' })
+  const [formInput, updateFormInput] = useState({ price: '', name: '', description: '', totalTickets: '' })
   const router = useRouter()
   const ipfsClient = require('ipfs-http-client');
   const projectId = '2Nbyc3pTaJLnAvtxihWqpSUr1zT'; 
@@ -89,19 +89,24 @@ export default function CreateItem() {
     <div className="flex justify-center">
       <div className="w-1/2 flex flex-col pb-12">
         <input 
-          placeholder="Asset Name"
+          placeholder="Event Name"
           className="mt-8 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, name: e.target.value })}
         />
         <textarea
-          placeholder="Asset Description"
+          placeholder="Event Description"
           className="mt-2 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, description: e.target.value })}
         />
         <input
-          placeholder="Asset Price in Eth"
+          placeholder="Ticket Price in Eth"
           className="mt-2 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, price: e.target.value })}
+        />
+        <input
+          placeholder="Number of tickets"
+          className="mt-2 border rounded p-4"
+          onChange={e => updateFormInput({ ...formInput, totalTickets: e.target.value })}
         />
         <input
           type="file"
