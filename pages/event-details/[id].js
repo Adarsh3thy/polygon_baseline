@@ -104,14 +104,13 @@ export default function EventDetails() {
                 </div>
         </div>
         <div style={{marginTop:"20px"}}>
-            <h2>Tickets section</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
                 {
                 eventTickets.map((ticket, i) => (
                     <div key={i} className="border shadow rounded-xl overflow-hidden">
                     <div className="p-4 bg-black">
                         <p className="text-2xl font-bold text-white">{ticket.price} ETH</p>
-                        <button className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => buyNft(nft)}>Purchase Ticket</button>
+                        <button className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => buyNft(ticket)}>Purchase Ticket</button>
                     </div>
                     </div>
                 ))
