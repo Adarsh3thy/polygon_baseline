@@ -13,19 +13,19 @@ function MyApp({ Component, pageProps }) {
               Home
             </a>
           </Link>
-          <Link href="/create-nft">
+          <Link href="/create-event">
             <a className="mr-6 text-pink-500">
-              Sell NFT
+              Create Event
             </a>
           </Link>
-          <Link href="/my-nfts">
+          <Link href="/my-tickets">
             <a className="mr-6 text-pink-500">
-              My NFTs
+              My Tickets
             </a>
           </Link>
-          <Link href="/dashboard">
+          <Link href="/my-events">
             <a className="mr-6 text-pink-500">
-              Dashboard
+              My Events
             </a>
           </Link>
         </div>

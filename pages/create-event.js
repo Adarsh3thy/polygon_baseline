@@ -21,7 +21,8 @@ export default function CreateItem() {
   const projectSecret = '5d2750ac4f6c2a96f88ad06472c5d3a0'; 
   const gateway='polytestdom'
 
-
+  const today = new Date();
+  const todayFmt = today.toISOString().split('T')[0];
   
   const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
   const client = ipfsClient.create({
@@ -95,17 +96,24 @@ export default function CreateItem() {
     <div className="flex justify-center">
       <div className="w-1/2 flex flex-col pb-12">
         <input 
-          placeholder="Asset Name"
+          placeholder="Event Name"
           className="mt-8 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, name: e.target.value })}
         />
         <textarea
-          placeholder="Asset Description"
+          placeholder="Event Description"
           className="mt-2 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, description: e.target.value })}
         />
+        <input 
+          type='date'
+          min={todayFmt}
+          placeholder="Event Date"
+          className="mt-8 border rounded p-4"
+          onChange={e => updateFormInput({ ...formInput, date: e.target.value })}
+        />
         <input
-          placeholder="Asset Price in Eth"
+          placeholder="Ticket Price in Eth"
           className="mt-2 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, price: e.target.value })}
         />
@@ -126,7 +134,7 @@ export default function CreateItem() {
           )
         }
         <button onClick={listNFTForSale} className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg">
-          Create NFT
+          Create Event
         </button>
       </div>
     </div>
