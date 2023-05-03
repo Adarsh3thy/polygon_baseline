@@ -65,22 +65,23 @@ export default function Home() {
 
   if (loadingState === 'loaded' && !events.length) return (<h1 className="px-20 py-10 text-3xl">No events</h1>)
   return (
-    <div className="flex">
-      <div className="px-5" style={{ maxWidth: '1600px' }}>
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-5">
+      <div className="px-5">
+        <div className="grid grid-cols-5 sm:grid-cols-3 lg:grid-cols-5 gap-6 pt-5">
           {
             events.map((event, i) => (
-              <div key={i} className="border shadow rounded-xl overflow-hidden" onClick={()=> router.push(`/event-details/${event.eventId}`)}>
-                <img src={event.image} />
-                <div className="p-4">
-                  <p style={{ height: '50px' }} className="text-2xl font-semibold">{event.name}</p>
-                  <p className="text-gray-400">{event.description}</p>
+              <div key={i} className="border shadow rounded-lg overflow-hidden" onClick={()=> router.push(`/event-details/${event.eventId}`)}>
+                <img width="100%" height="100%" src={event.image} />
+                <div className="p-2">
+                  <p className="text-2xl font-semibold capitalize">{event.name}</p>
+                  <div style={{marginTop:"10px"}}>
+                    <p className="text-gray-800 capitalize">{event.description}</p>
+                    <p className="text-gray-800">event.date</p>
+                  </div>
                 </div>
               </div>
             ))
           }
         </div>
       </div>
-    </div>
   )
 }

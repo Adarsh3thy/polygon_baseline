@@ -54,23 +54,21 @@ export default function MyAssets() {
   }
   if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No NFTs owned</h1>)
   return (
-    <div className="flex">
-      <div className="p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+      <div className="px-5 py-5">
+        <div className="grid grid-cols-5 sm:grid-cols-3 lg:grid-cols-5 gap-6 pt-5">
           {
             nfts.map((nft, i) => (
-              <div key={i} className="border shadow rounded-xl overflow-hidden">
-                <img src={nft.image} className="rounded" />
-                <div className="p-4 bg-black">
-                  <p className="test-2xl font-bold text-white">{nft.name}</p>
-                  <p className="text-1xl text-white">Price - {nft.price} Eth</p>
-                  <button className="mt-4 w-full bg-pink-500 text-white py-2 px-12 rounded" onClick={() => listNFT(nft)}>Resell Ticket</button>
+              <div key={i} className="border shadow rounded-xl overflow-hidden" >
+                <img src={nft.image} width="100%" height="100%" className="rounded" onClick={()=> router.push(`/event-details/${nft.eventId}`)} />
+                <div className="p-4">
+                  <p className="test-2xl font-bold" onClick={()=> router.push(`/event-details/${nft.eventId}`)}>{nft.name}</p>
+                  <p className="text-1xl">Price - {nft.price} Eth</p>
+                  <button className="mt-4 w-full bg-gray-800 text-white py-2 px-12 rounded" onClick={() => listNFT(nft)}>Resell Ticket</button>
                 </div>
               </div>
             ))
           }
         </div>
       </div>
-    </div>
   )
 }
