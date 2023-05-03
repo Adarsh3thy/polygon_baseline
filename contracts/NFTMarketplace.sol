@@ -143,7 +143,7 @@ contract NFTMarketplace is ERC721URIStorage {
         require(msg.value == listingPrice, "Resend the listing price to list the token again");
 
         idToEventToken[tokenId].sold = false;
-        idToEventToken[tokenId].isResold = false;
+        idToEventToken[tokenId].isResold = true;
         idToEventToken[tokenId].price = price;
         idToEventToken[tokenId].seller = payable(msg.sender);
         idToEventToken[tokenId].owner = payable(address(this));

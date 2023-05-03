@@ -76,7 +76,7 @@ export default function CreateItem() {
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
-
+    
     /* next, create the item */
     const price = ethers.utils.parseUnits(formInput.price, 'ether')
     const numTickets = ethers.BigNumber.from(formInput.numTickets);
