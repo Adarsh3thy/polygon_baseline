@@ -37,28 +37,61 @@ export default function CreatorDashboard() {
         seller: i.seller,
         owner: i.owner,
         image: meta.data.image,
+        sold : i.sold.toString(),
+        eventId : i.eventId.toNumber(),
+        name : meta.data.name,
       }
       return item
     }))
 
-    setNfts(items)
+    const groupedItems = items.reduce((acc, curr) => {
+      const eventId = curr.event
+      if (!acc[eventId]) {
+        acc[eventId] = []
+      }
+      acc[eventId].push(curr)
+      return acc
+    }, {})
+
+    const groupedNfts = items.reduce((acc, item) => {
+      const key = `${item.eventId}_${item.price}`;
+      if (!acc[key] ) {
+        acc[key] = {
+          name: item.name,
+          image: item.image,
+          price : item.price,
+          count: 1
+        };
+      } else {
+        acc[key].count++;
+      }
+      return acc;
+    }, {});
+
+    setNfts(groupedNfts)
     setLoadingState('loaded') 
   }
-  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No NFTs listed</h1>)
+  if (loadingState === 'loaded' && !Object.keys(nfts)) return (<h1 className="py-10 px-20 text-3xl">No NFTs listed</h1>)
   return (
     <div>
       <div className="p-4">
         <h2 className="text-2xl py-2">Items Listed</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {
-            nfts.map((nft, i) => (
-              <div key={i} className="border shadow rounded-xl overflow-hidden">
-                <img src={nft.image} className="rounded" />
+            Object.keys(nfts).map(key => { 
+             
+              const [eventId, price] = key.split('_');
+              return (
+              <div key={key} className="border shadow rounded-xl overflow-hidden">
+                <img src={nfts[key].image} className="rounded" />
                 <div className="p-4 bg-black">
-                  <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
+                  <p className="text-2xl font-bold text-white">Event Name - {nfts[key].name} </p>
+                  <p className="text-1xl  text-white">price - {nfts[key].price} Eth </p>
+                  <p className="text-1xl  text-white">Count - {nfts[key].count}  </p>
                 </div>
               </div>
-            ))
+              );
+            })
           }
         </div>
       </div>
