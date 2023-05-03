@@ -11,6 +11,7 @@ import NFTMarketplace from '../artifacts/contracts/NFTMarketplace.sol/NFTMarketp
 
 export default function CreatorDashboard() {
   const [nfts, setNfts] = useState([])
+  const [events, setEvents] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
   useEffect(() => {
     loadNFTs()
@@ -42,6 +43,8 @@ export default function CreatorDashboard() {
     }))
 
     setNfts(items)
+    const unique_events = [...new Map(items.map((item) => [item["eventId"], item])).values()];
+    setEvents(unique_events);
     setLoadingState('loaded') 
   }
   if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No NFTs listed</h1>)

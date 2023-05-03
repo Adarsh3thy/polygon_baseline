@@ -36,6 +36,7 @@ export default function MyAssets() {
       let item = {
         price,
         eventId: i.eventId.toNumber(),
+        name: meta.data.name,
         tokenId: i.tokenId.toNumber(),
         seller: i.seller,
         owner: i.owner,
@@ -53,7 +54,7 @@ export default function MyAssets() {
   }
   if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No NFTs owned</h1>)
   return (
-    <div className="flex justify-center">
+    <div className="flex">
       <div className="p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {
@@ -61,12 +62,9 @@ export default function MyAssets() {
               <div key={i} className="border shadow rounded-xl overflow-hidden">
                 <img src={nft.image} className="rounded" />
                 <div className="p-4 bg-black">
-                  <p className="test-2xl font-bold text-white">EventID: {nft.eventId}, TokenID: {nft.tokenId}</p>
-                  <p className="text-2xl font-bold text-white">Owner: {nft.owner}, Seller: {nft.seller}</p>
-                </div>
-                <div className="p-4 bg-black">
-                  <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
-                  <button className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => listNFT(nft)}>List</button>
+                  <p className="test-2xl font-bold text-white">{nft.name}</p>
+                  <p className="text-1xl text-white">Price - {nft.price} Eth</p>
+                  <button className="mt-4 w-full bg-pink-500 text-white py-2 px-12 rounded" onClick={() => listNFT(nft)}>Resell Ticket</button>
                 </div>
               </div>
             ))

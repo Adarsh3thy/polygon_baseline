@@ -65,7 +65,7 @@ export default function Home() {
 
   if (loadingState === 'loaded' && !events.length) return (<h1 className="px-20 py-10 text-3xl">No events</h1>)
   return (
-    <div className="flex justify-center">
+    <div className="flex">
       <div className="px-5" style={{ maxWidth: '1600px' }}>
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-5">
           {

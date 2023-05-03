@@ -97,40 +97,42 @@ export default function EventDetails() {
       {(loadingState === 'loaded' && !eventTickets.length) ? (
         <h1 className="px-20 py-10 text-3xl">No tickets in event</h1>) 
       :(
-        <div>
-            <div className="px-4"> 
+        <div className="px-5">
+            <div style={{marginTop:"20px"}}> 
               {eventTickets.length && (<p className="text-2xl font-semibold">{eventTickets[0].name}</p>)}
-              {eventTickets.length && (<img width="25%" height="25%" src={eventTickets[0].image}/>)}
+              {eventTickets.length && (<img width="20%" height="20%" src={eventTickets[0].image}/>)}
               {eventTickets.length && (<p className="text-gray-400">{eventTickets[0].description}</p>)}
               {eventTickets.length && (<p className="text-gray-400">Number of Tickets available: {eventTickets.length}</p>)}
             </div>
 
         <div style={{marginTop:"20px"}}>
-            <p className="text-2xl font-bold">Original Tickets</p>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+            <p className="text-2xl">Original Tickets</p>
+            {!originalTixs.length ? (<h1>No tickets available</h1>): (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 pt-3">
                   {originalTixs.map((ticket, i) => (
                     <div key={i} className="border shadow rounded-xl overflow-hidden">
                       <div className="p-4 bg-black">
-                          <p className="text-2xl font-bold text-white">{ticket.price} ETH</p>
-                          <button className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => buyNft(ticket)}>Purchase Ticket</button>
+                          <p className="text-2xl text-white">{ticket.price} ETH</p>
+                          <button className="mt-4 w-full bg-pink-500 text-white py-2 px-12 rounded" onClick={() => buyNft(ticket)}>Purchase Ticket</button>
                       </div>
                     </div>
                   ))}
-            </div>
+            </div>)}
           </div>
 
           <div style={{marginTop:"20px"}}>
-            <p className="text-2xl font-bold">Resell Tickets</p>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+            <p className="text-2xl">Resell Tickets</p>
+            {!resellTixs.length ? (<h1>No tickets available</h1>): (
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-3">
                   {resellTixs.map((ticket, i) => (
                     <div key={i} className="border shadow rounded-xl overflow-hidden">
                       <div className="p-4 bg-black">
-                          <p className="text-2xl font-bold text-white">{ticket.price} ETH</p>
-                          <button className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => buyNft(ticket)}>Purchase Ticket</button>
+                          <p className="text-2xl text-white">{ticket.price} ETH</p>
+                          <button className="mt-4 w-full bg-pink-500 text-white py-2 px-12 rounded" onClick={() => buyNft(ticket)}>Purchase Ticket</button>
                       </div>
                     </div>
                   ))}
-            </div>
+            </div>)}
           </div>
 
       </div>
