@@ -74,20 +74,20 @@ export default function CreatorDashboard() {
   if (loadingState === 'loaded' && !Object.keys(nfts)) return (<h1 className="py-10 px-20 text-3xl">No NFTs listed</h1>)
   return (
     <div>
-      <div className="p-4">
-        <h2 className="text-2xl py-2">Items Listed</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+      <div className="px-5 py-5">
+        <h2 className="text-2xl py-2">Events with unsold tickets</h2>
+          <div className="grid grid-cols-5 sm:grid-cols-3 lg:grid-cols-5 gap-6">
           {
             Object.keys(nfts).map(key => { 
              
               const [eventId, price] = key.split('_');
               return (
               <div key={key} className="border shadow rounded-xl overflow-hidden">
-                <img src={nfts[key].image} className="rounded" />
-                <div className="p-4 bg-black">
-                  <p className="text-2xl font-bold text-white">Event Name - {nfts[key].name} </p>
-                  <p className="text-1xl  text-white">price - {nfts[key].price} Eth </p>
-                  <p className="text-1xl  text-white">Count - {nfts[key].count}  </p>
+                <img src={nfts[key].image} width="100%" height="100%" className="rounded" />
+                <div className="p-4">
+                  <p className="text-xl font-bold text-gray-800 capitalize">Event Name : {nfts[key].name} </p>
+                  <p className="text-1xl text-gray-700 capitalize">price : {nfts[key].price} Eth </p>
+                  <p className="text-1xl text-gray-700 capitalize">Unsold tickets : {nfts[key].count}  </p>
                 </div>
               </div>
               );
