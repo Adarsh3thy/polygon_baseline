@@ -25,6 +25,7 @@ contract NFTMarketplace is ERC721URIStorage {
         uint256 tokenId;
         address payable seller;
         address payable owner;
+        address payable creator;
         uint256 price;
         bool sold;
         bool isResold;
@@ -39,6 +40,7 @@ contract NFTMarketplace is ERC721URIStorage {
         uint256 tokenId,
         address seller,
         address owner,
+        address creator,
         uint256 price,
         bool sold,
         bool isResold
@@ -82,6 +84,7 @@ contract NFTMarketplace is ERC721URIStorage {
                 newTokenId,
                 payable(msg.sender),
                 payable(address(this)),
+                payable(msg.sender),
                 price,
                 false,
                 false
@@ -92,7 +95,8 @@ contract NFTMarketplace is ERC721URIStorage {
                 currentEventId, 
                 newTokenId, 
                 msg.sender, 
-                address(this), 
+                address(this),
+                msg.sender,  
                 price, 
                 false,
                 false
@@ -211,14 +215,14 @@ contract NFTMarketplace is ERC721URIStorage {
         uint currentIndex = 0;
 
         for(uint i=0; i<totalItemCount; i++) {
-            if(idToEventToken[i+1].seller == msg.sender) {
+            if(idToEventToken[i+1].creator == msg.sender) {
                 itemCount += 1;
             }
         }
 
         EventToken[] memory items = new EventToken[](itemCount);
         for(uint i=0; i<totalItemCount; i++) {
-            if(idToEventToken[i+1].seller == msg.sender) {
+            if(idToEventToken[i+1].creator == msg.sender) {
                 uint currentId = i+1;
                 EventToken storage currentItem = idToEventToken[currentId];
                 items[currentIndex] = currentItem;
