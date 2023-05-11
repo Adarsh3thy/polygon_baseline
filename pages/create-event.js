@@ -14,7 +14,7 @@ import NFTMarketplace from '../artifacts/contracts/NFTMarketplace.sol/NFTMarketp
 
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null)
-  const [formInput, updateFormInput] = useState({ price: '', name: '', description: '', numTickets: '' })
+  const [formInput, updateFormInput] = useState({ price: '', name: '', description: '', numTickets: '', date: ''})
   const router = useRouter()
   const ipfsClient = require('ipfs-http-client');
   const projectId = '2Nbyc3pTaJLnAvtxihWqpSUr1zT'; 
@@ -53,12 +53,12 @@ export default function CreateItem() {
     }  
   }
   async function uploadToIPFS() {
-    const { name, description, price, numTickets } = formInput
-    console.log('trying for', name, description, price, numTickets);
-    if (!name || !description || !price || !fileUrl) return
+    const { name, description, price, numTickets, date } = formInput
+    console.log('trying for', name, description, price, numTickets, date);
+    if (!name || !description || !price || !fileUrl || !numTickets || !date) return
     /* first, upload to IPFS */
     const data = JSON.stringify({
-      name, description, image: fileUrl
+      name, description, date, image: fileUrl
     })
     try {
       const added = await client.add(data)
@@ -97,29 +97,29 @@ export default function CreateItem() {
       <div className="w-1/2 flex flex-col pb-12">
         <input 
           placeholder="Event Name"
-          className="mt-8 border rounded p-4"
+          className="mt-8 border rounded p-4 text-black"
           onChange={e => updateFormInput({ ...formInput, name: e.target.value })}
         />
         <textarea
           placeholder="Event Description"
-          className="mt-2 border rounded p-4"
+          className="mt-2 border rounded p-4 text-black"
           onChange={e => updateFormInput({ ...formInput, description: e.target.value })}
         />
         <input 
           type='date'
           min={todayFmt}
           placeholder="Event Date"
-          className="mt-8 border rounded p-4"
+          className="mt-8 border rounded p-4 text-black"
           onChange={e => updateFormInput({ ...formInput, date: e.target.value })}
         />
         <input
           placeholder="Ticket Price in Eth"
-          className="mt-2 border rounded p-4"
+          className="mt-2 border rounded p-4 text-black"
           onChange={e => updateFormInput({ ...formInput, price: e.target.value })}
         />
         <input
           placeholder="Number of tickets"
-          className="mt-2 border rounded p-4"
+          className="mt-2 border rounded p-4 text-black"
           onChange={e => updateFormInput({ ...formInput, numTickets: e.target.value })}
         />
         <input
@@ -130,7 +130,7 @@ export default function CreateItem() {
         />
         {
           fileUrl && (
-            <img className="rounded mt-4" width="350" src={fileUrl} />
+            <img className="rounded mt-4 border border-white" width="350" src={fileUrl} />
           )
         }
         <button onClick={listNFTForSale} className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg">

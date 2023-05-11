@@ -75,8 +75,7 @@ export default function CreatorDashboard() {
   return (
     <div>
       <div className="px-5 py-5">
-        <h2 className="text-2xl py-2">Events with unsold tickets</h2>
-          <div className="grid grid-cols-5 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-6 sm:grid-cols-3 lg:grid-cols-6 gap-6">
           {
             Object.keys(nfts).map(key => { 
              
@@ -85,9 +84,9 @@ export default function CreatorDashboard() {
               <div key={key} className="border shadow rounded-xl overflow-hidden">
                 <img src={nfts[key].image} width="100%" height="100%" className="rounded" />
                 <div className="p-4">
-                  <p className="text-xl font-bold text-gray-800 capitalize">Event Name : {nfts[key].name} </p>
-                  <p className="text-1xl text-gray-700 capitalize">price : {nfts[key].price} Eth </p>
-                  <p className="text-1xl text-gray-700 capitalize">Unsold tickets : {nfts[key].count}  </p>
+                  <p className="text-xl font-bold capitalize">Event Name : {nfts[key].name} </p>
+                  <p className="text-1xl capitalize">price : {nfts[key].price} Eth </p>
+                  <p className="text-1xl capitalize">count : {nfts[key].count}  </p>
                 </div>
               </div>
               );

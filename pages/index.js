@@ -33,6 +33,7 @@ export default function Home() {
         eventId: i.eventId.toNumber(),
         image: meta.data.image,
         name: meta.data.name,
+        date: meta.data.date,
         description: meta.data.description,
       }
       return item
@@ -65,8 +66,8 @@ export default function Home() {
 
   if (loadingState === 'loaded' && !events.length) return (<h1 className="px-20 py-10 text-3xl">No events</h1>)
   return (
-      <div className="px-5">
-        <div className="grid grid-cols-5 sm:grid-cols-3 lg:grid-cols-5 gap-6 pt-5">
+      <div className="px-7 py-2">
+        <div className="grid grid-cols-5 sm:grid-cols-2 lg:grid-cols-5 gap-6 pt-5">
           {
             events.map((event, i) => (
               <div key={i} className="border shadow rounded-lg overflow-hidden" onClick={()=> router.push(`/event-details/${event.eventId}`)}>
@@ -74,8 +75,8 @@ export default function Home() {
                 <div className="p-2">
                   <p className="text-2xl font-semibold capitalize">{event.name}</p>
                   <div style={{marginTop:"10px"}}>
-                    <p className="text-gray-800 capitalize">{event.description}</p>
-                    <p className="text-gray-800">event.date</p>
+                    <p className="capitalize">{event.description}</p>
+                    <p className="">{event.date}</p>
                   </div>
                 </div>
               </div>

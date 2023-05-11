@@ -63,7 +63,7 @@ export default function MyAssets() {
                 <div className="p-4">
                   <p className="test-2xl font-bold" onClick={()=> router.push(`/event-details/${nft.eventId}`)}>{nft.name}</p>
                   <p className="text-1xl">Price - {nft.price} Eth</p>
-                  <button className="mt-4 w-full bg-gray-800 text-white py-2 px-12 rounded" onClick={() => listNFT(nft)}>Resell Ticket</button>
+                  <button className="mt-4 w-full bg-pink-500 text-white py-2 px-12 rounded" onClick={() => listNFT(nft)}>Resell Ticket</button>
                 </div>
               </div>
             ))

@@ -52,6 +52,7 @@ export default function EventDetails() {
         owner: i.owner, 
         sold: i.sold,
         resold: i.isResold,
+        date: meta.data.date,
         image: meta.data.image,
         name: meta.data.name,
         description: meta.data.description,
@@ -104,37 +105,37 @@ export default function EventDetails() {
               <div className='flex gap-5 mt-2'>
                 {eventTickets.length && (<img width="20%" height="20%" src={eventTickets[0].image}/>)}
                 <div style={{marginTop:"30px", fontSize: "18px"}}>
-                  {eventTickets.length && (<p className="text-gray-600 capitalize">{eventTickets[0].description}</p>)}
-                  {eventTickets.length && (<p className="text-gray-600 my-2">eventTickets[0].date</p>)}
-                  {eventTickets.length && (<p className="text-gray-600 my-5">Number of Tickets available: {eventTickets.length}</p>)}
+                  {eventTickets.length && (<p className="capitalize">{eventTickets[0].description}</p>)}
+                  {eventTickets.length && (<p className="my-2">{eventTickets[0].date}</p>)}
+                  {eventTickets.length && (<p className="my-5">Number of Tickets available: {eventTickets.length}</p>)}
                 </div>
               </div>
               
             </div>
   
-          <hr className='mt-5'></hr>
-          <div className='mt-3'>
+          <hr className='mt-7'></hr>
+          <div className='mt-2'>
               <p className="text-lg">Original Tickets</p>
               {!originalTixs.length ? (<h1 className="text-gray-400 my-1">No tickets available</h1>): (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-12 gap-y-6 mt-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-12 gap-y-6 mt-3">
                     {originalTixs.map((ticket, i) => (
-                      <div key={i} className="p-3 border border-black shadow rounded-lg overflow-hidden">
-                        <p className="mt-1 text-lg text-black font-semibold text-center">{ticket.price} ETH</p>   
-                        <button className="w-full mt-2 bg-gray-800 text-white py-1 px-3 rounded text-base" onClick={() => buyNft(ticket)}>Buy Ticket</button>
+                      <div key={i} className="p-3 border border-white shadow rounded-lg overflow-hidden">
+                        <p className="mt-1 text-lg font-semibold text-center">{ticket.price} ETH</p>   
+                        <button className="w-full mt-2 bg-pink-500 text-white py-1 px-3 rounded text-base" onClick={() => buyNft(ticket)}>Buy Ticket</button>
                         
                       </div>
                     ))}
               </div>)}
             </div>
-            <hr className='mt-7'></hr>
-            <div className='mt-3'>
-              <p className="text-2lg">Resell Tickets</p>
+            <hr className='mt-8'></hr>
+            <div className='mt-2'>
+              <p className="text-lg">Relisted Tickets</p>
               {!resellTixs.length ? (<h1 className="text-gray-400 my-1">No tickets available</h1>): (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-12 gap-y-6 mt-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-12 gap-y-6 mt-3">
                     {resellTixs.map((ticket, i) => (
-                      <div key={i} className="p-3 border border-black shadow rounded-lg overflow-hidden">
-                          <p className="mt-1 text-lg text-grey-600 font-semibold text-center">{ticket.price} ETH</p>
-                          <button className="w-full mt-2 bg-gray-800 text-white py-1 px-3 rounded text-base" onClick={() => buyNft(ticket)}>Buy Ticket</button>
+                      <div key={i} className="p-3 border bg-black border-white shadow rounded-lg overflow-hidden">
+                          <p className="mt-1 text-lg text-white font-semibold text-center">{ticket.price} ETH</p>
+                          <button className="w-full mt-2 bg-pink-500 text-white py-1 px-3 rounded text-base" onClick={() => buyNft(ticket)}>Buy Ticket</button>
                       </div>
                     ))}
               </div>)}
